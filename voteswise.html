@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: teal;
+      }
+      .question {
+        margin-bottom: 20px;
+      }
+      .results {
+        margin-top: 10px;
+      }
+      .results ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      .results li {
+        margin-bottom: 5px;
+      }
+      button {
+        background-color: white;
+        border-radius: 6px;
+        color: black;
+        border: none;
+        padding: 10px;
+        width: 100px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: black;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="question">
+      <h2>Whom are you going to vote if elections are tomorrow?</h2>
+      <div id="fruit-options">
+        <button data-option="apple">Biden</button>
+        <button data-option="banana">Trump</button>
+        <button data-option="orange">Don't know</button>
+      </div>
+      <div class="results">
+        <h3>Results:</h3>
+        <ul>
+          <li>Biden: <span id="apple-votes">0</span></li>
+          <li>Trump: <span id="banana-votes">0</span></li>
+          <li>Don't know: <span id="orange-votes">0</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="question">
+      <h2>Do you think Biden should drop off from presidential race?</h2>
+      <div id="color-options">
+        <button data-option="red">Yes</button>
+        <button data-option="blue">No</button>
+        <button data-option="green">I don't care</button>
+      </div>
+      <div class="results">
+        <h3>Results:</h3>
+        <ul>
+          <li>Yes: <span id="red-votes">0</span></li>
+          <li>No: <span id="blue-votes">0</span></li>
+          <li>I don't care: <span id="green-votes">0</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="question">
+      <h2>Who do think should replace him?</h2>
+      <div id="season-options">
+        <button data-option="spring">Kamala Harris</button>
+        <button data-option="summer">Gavin Newsom</button>
+        <button data-option="winter">Gretchen Whitmer</button>
+      </div>
+      <div class="results">
+        <h3>Results:</h3>
+        <ul>
+          <li>Kamala Harris: <span id="spring-votes">0</span></li>
+          <li>Gavin Newsom: <span id="summer-votes">0</span></li>
+          <li>Gretchen Whitmer: <span id="winter-votes">0</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div>
+      <button id="reset-button">Reset</button>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const questions = [
+          { id: "fruit", options: ["apple", "banana", "orange"] },
+          { id: "color", options: ["red", "blue", "green"] },
+          { id: "season", options: ["spring", "summer", "winter"] },
+        ];
+
+        questions.forEach((question) => {
+          question.options.forEach((option) => {
+            const button = document.querySelector(
+              `#${question.id}-options [data-option="${option}"]`
+            );
+            const span = document.getElementById(`${option}-votes`);
+            let count = 0;
+
+            button.addEventListener("click", () => {
+              count++;
+              span.textContent = count;
+            });
+
+            button.dataset.count = 0;
+          });
+        });
+
+        const resetButton = document.getElementById("reset-button");
+        resetButton.addEventListener("click", () => {
+          questions.forEach((question) => {
+            question.options.forEach((option) => {
+              const button = document.querySelector(
+                `#${question.id}-options [data-option="${option}"]`
+              );
+              const span = document.getElementById(`${option}-votes`);
+              button.dataset.count = 0;
+              span.textContent = 0;
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
